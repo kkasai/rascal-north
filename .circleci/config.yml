@@ -34,9 +34,9 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
         
       - run: yarn run generate
-      
+
       # run tests!
       - run: yarn test
 
       - store_artifacts:
-        path: dist
+          path: dist
