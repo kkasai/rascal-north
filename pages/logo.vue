@@ -3,7 +3,7 @@
     <div>
       <app-logo/>
       <h1 class="title">
-        violetmine
+        Rascal-North
       </h1>
       <h2 class="subtitle">
         Nuxt.js project

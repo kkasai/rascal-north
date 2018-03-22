@@ -1,4 +1,4 @@
-# violetmine
+# rascal-north
 
 > Nuxt.js project
 

@@ -1,8 +1,8 @@
 {
-  "name": "violetmine",
+  "name": "rascal-north",
   "version": "1.0.0",
-  "description": "Nuxt.js project",
-  "author": "t-shimoda",
+  "description": "UI for rascaliod",
+  "author": "interaktion",
   "private": true,
   "scripts": {
     "dev": "nuxt",
