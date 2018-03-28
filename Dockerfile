@@ -12,7 +12,7 @@ FROM node:8.10.0
 
 COPY --from=build /rascal-north/dist /rascal-north/
 COPY --from=build /rascal-north/server.js /rascal-north/
-RUN npm install -g express
 WORKDIR /rascal-north
+RUN npm install express
 
 ENTRYPOINT ["node", "server.js"]
