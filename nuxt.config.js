@@ -3,7 +3,7 @@ module.exports = {
   ** Headers of the page
   */
   head: {
-    title: 'rascal-north',
+    title: 'violetmine',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -34,6 +34,14 @@ module.exports = {
         })
       }
     }
+  },
+  /*
+  ** Connection settings for web api
+  */
+  env: {
+    webApiUrl: process.env.RASCALOID_URL || 'http://localhost',
+    webApiPort: process.env.RASCALOID_PORT || '3000',
+    enableBouncr: process.env.RASCALOID_ENABLE_BOUNCR || true,
   },
 
   plugins: ['~/plugins/router']
