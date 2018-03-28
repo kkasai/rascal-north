@@ -128,7 +128,7 @@
       }
     },
     mounted() {
-      this.$store.commit('projectsState/init', {})
+      this.$store.dispatch('projectsState/projectsAsync', {})
       this.projectsState.projects.forEach((project) => {
         project.users = UserController.findByIds(project.userIds)
         this.$set(project, 'showEditDialog', false)
@@ -181,7 +181,7 @@
           //ログインユーザのプロジェクトが編集されている可能性があるため、リロード
           let loginUser = this.$store.state.loginState.loginUser
           let backlogState = this.$store.state.backlogState
-          backlogState.userProjects = ProjectController.findByIds(loginUser.projectIds)
+          backlogState.userProjects = this.$store.projectsState.projects
         }
       },
       onDeleteStart(index) {
@@ -200,18 +200,14 @@
         this.showAddDialog = true
       },
       onAddOk(request) {
-        this.$store.commit('projectsState/create', {
+        this.$store.dispatch('projectsState/createAsync', {
           request: request,
         })
         const projects = this.projectsState.projects
-        const project = projects[projects.length - 1]
-        this.$set(project, 'users', UserController.findByIds(project.userIds))
-        this.$set(project, 'showEditDialog', false)
         this.showAddDialog = false
         //ログインユーザのプロジェクトが編集されている可能性があるため、リロード
-        let loginUser = this.$store.state.loginState.loginUser
         let backlogState = this.$store.state.backlogState
-        backlogState.userProjects = ProjectController.findByIds(loginUser.projectIds)
+        backlogState.userProjects = projects
       },
       onAddCancel() {
         this.showAddDialog = false

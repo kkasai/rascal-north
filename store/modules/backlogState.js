@@ -48,19 +48,7 @@ const backlogState = {
       const loginUser = payload.loginUser
       if(!loginUser)
         return
-      state.userProjects = ProjectController.findByIds(loginUser.projectIds)
-      if(state.userProjects.length > 0) {
-        const currentProject = state.userProjects[0]
-        state.currentProject = currentProject
-        state.iterations = IterationController.findByProjectId(currentProject.id)
-        state.iterations.forEach((iteration) => {
-          state.iterationStories = state.iterationStories.concat(StoryController.findByIterationId(iteration.id))
-        })
-        state.backlogs = StoryController.findBacklogsByProjectId(currentProject.id)
-      } else {
-        state.error = 'アサインされているプロジェクトがありません。'
-      }
-      console.log(state)
+      state.userProjects = this.state.projectsState.projects
     },
 
     switchCurrentProject(state, payload) {

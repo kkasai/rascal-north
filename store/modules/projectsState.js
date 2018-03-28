@@ -62,6 +62,28 @@ const projectsState = {
         state.error = err.message
         console.log("ERROR: projectsState#delete " + state.error)
       }
+    },
+
+    projects(state, response) {
+      state.projects = ProjectController.convertProjects(response.data)
+    }
+  },
+  actions: {
+    projectsAsync({commit}) {
+      ProjectController.findAll()
+        .then(response => {
+          if(response.status === 200) {
+            commit('projects', response)
+          }
+        })
+    },
+    doCreate({commit},payload) {
+      return ProjectController.createProject(payload.request)
+    },
+    async createAsync({dispatch, commit}, payload) {
+      console.log(payload)
+      await dispatch('doCreate', payload)
+      commit('projects' ,await ProjectController.findAll())
     }
   }
 }

@@ -1,4 +1,5 @@
 import Project, { ProjectUpdateRequest } from '~/libs/models/Project'
+import axios from '~/plugins/axios'
 
 let nextId=1
 let projectMap={}
@@ -61,11 +62,7 @@ class ProjectController {
 
   static findAll() {
     ProjectController.initialize_()
-    const projects = []
-    for (let key in projectMap) {
-      projects.push(projectMap[key])
-    }
-    return projects
+    return axios.get('/projects')
   }
 
   static createProjects(requests) {
@@ -98,8 +95,7 @@ class ProjectController {
   }
 
   static createProject(request) {
-    const projects = ProjectController.createProjects([request])
-    return (projects.length !== 0) ? projects[0] : undefined
+    return axios.post('/projects', ProjectController.convertRequest(request))
   }
 
   static updateProjects(rawObjects) {
@@ -181,6 +177,25 @@ class ProjectController {
       localStorage.setItem(storageName, json)
     } else {
       console.log('WARNING: プロジェクト情報はセーブされていません。')
+    }
+  }
+
+  static convertProjects(objects) {
+    const result = []
+    objects.forEach((object) => {
+      result.push(new Project(object))
+    })
+    return result
+  }
+
+  static convertProject(object) {
+    return new Project(object)
+  }
+
+  static convertRequest(request) {
+    return {
+      name: request.name,
+      description: request.description,
     }
   }
 }
