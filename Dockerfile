@@ -4,6 +4,7 @@ RUn mkdir /rascal-north
 ADD ./ /rascal-north
 WORKDIR /rascal-north
 
+RUN npm install
 RUN npm run generate
 
 
